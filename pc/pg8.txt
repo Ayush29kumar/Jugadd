@@ -48,3 +48,17 @@ else if (rank == 1) {
     MPI_Finalize(); // Finalize MPI
     return 0;
 }
+
+/*
+* Compilation and Execution:
+* $ mpicc pg8.c -o pg8
+* $ mpirun -np 4 ./pg8
+*
+* [cite_start]Sample Output for -np 4 (based on PDF source [cite: 88, 89]):
+* Process 3 (non-blocking) initiating receive from Process 2
+* Process 0 (blocking) sending message: 100 to Process 1
+* Process 2 (non-blocking) initiating send of message: 200 to Process 3
+* Process 3 (non-blocking) received message: 200 from Process 2
+* Process 1 (blocking) received message: 100 from Process 0
+* (Output order may vary for non-blocking operations)
+*/
