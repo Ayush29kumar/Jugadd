@@ -93,4 +93,23 @@ int main() {
     free_matrix(C_par, n);
 
     return 0;
+
 }
+
+
+
+/*
+* Compilation and Execution:
+* $ gcc -fopenmp pg6.c -o pg6
+* $ ./pg6
+*
+* [cite_start]Sample Input/Output for n=1000 (based on PDF source [cite: 100, 101, 102, 106, 107, 108]):
+* Enter matrix size (e.g. 1000, 2000, 3000): 1000
+*
+* Matrix size: 1000x1000
+* Sequential Time: 4.4993 seconds
+* Parallel Time:   0.6794 seconds
+* Speedup:         6.62x
+* Result match:    YES
+* (Execution times and speedup will vary based on hardware)
+*/
