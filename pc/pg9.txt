@@ -48,3 +48,14 @@ MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Finalize(); // Finalize MPI
     return 0;
 }
+
+/*
+* Compilation and Execution:
+* $ mpicc pg9.c -o pg9
+* $ mpirun -np 4 ./pg9
+*
+* Sample Output for -np 4:
+* Squared values: 1 4 9 16
+* Sum of squares = 30
+* (Calculation: 1^2 + 2^2 + 3^2 + 4^2 = 1 + 4 + 9 + 16 = 30)
+*/
