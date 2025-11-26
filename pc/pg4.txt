@@ -56,4 +56,23 @@ int main() {
         }
     }
 
+
     return 0;
+
+
+/*
+* Compilation and Execution:
+* $ gcc -fopenmp pg4.c -o pg4
+* $ ./pg4
+*
+* Sample Input/Output (based on PDF source):
+* Enter number of Fibonacci terms to generate: 5
+* Fibonacci Series (5 terms):
+* 0 1 1 2 3
+*/
+
+
+
+
+
+
