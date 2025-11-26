@@ -1,0 +1,80 @@
+Program 5 : Write a program to demonstrate the Birthday Attack on a hash function. Assume a hash function that produces values between 0 and 999. Randomly generate hash values until a duplicate (collision) is found. Display how many random values were needed before the first collision occurred.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdbool.h>
+
+#define HASH_SPACE 1000  // Hash values range from 0 to 999
+
+int main() {
+	// Seed random number generator
+	srand(time(NULL));
+
+	// Array to track seen hash values
+	bool hash_seen[HASH_SPACE] = { false };
+
+	int attempts = 0;
+	int hash_value;
+
+	printf("Starting Birthday Attack Simulation...\n");
+	printf("----------------------------------------\n");
+
+	while (1) {
+    	hash_value = rand() % HASH_SPACE;  // Generate random hash [0, 999]
+    	attempts++;
+
+    	printf("Attempt %d: Generated hash value = %d --> ", attempts, hash_value);
+
+    	if (hash_seen[hash_value]) {
+        	printf("Collision Detected!\n");
+        	printf("\nSummary:\n");
+        	printf(" - Total attempts made: %d\n", attempts);
+        	printf(" - Collided hash value: %d\n", hash_value);
+        	break;
+    	} else {
+        	printf("No collision, marking as seen.\n");
+        	hash_seen[hash_value] = true;
+    	}
+	}
+
+	printf("----------------------------------------\n");
+	printf("Birthday Attack Simulation Completed.\n");
+
+	return 0;
+}
+
+  Output : 
+
+
+Starting Birthday Attack Simulation...
+----------------------------------------
+Attempt 1: Generated hash value = 452 --> No collision, marking as seen.
+Attempt 2: Generated hash value = 207 --> No collision, marking as seen.
+Attempt 3: Generated hash value = 655 --> No collision, marking as seen.
+Attempt 4: Generated hash value = 422 --> No collision, marking as seen.
+Attempt 5: Generated hash value = 678 --> No collision, marking as seen.
+Attempt 6: Generated hash value = 551 --> No collision, marking as seen.
+Attempt 7: Generated hash value = 287 --> No collision, marking as seen.
+Attempt 8: Generated hash value = 685 --> No collision, marking as seen.
+Attempt 9: Generated hash value = 697 --> No collision, marking as seen.
+Attempt 10: Generated hash value = 663 --> No collision, marking as seen.
+Attempt 11: Generated hash value = 391 --> No collision, marking as seen.
+Attempt 12: Generated hash value = 653 --> No collision, marking as seen.
+Attempt 13: Generated hash value = 762 --> No collision, marking as seen.
+Attempt 14: Generated hash value = 524 --> No collision, marking as seen.
+Attempt 15: Generated hash value = 443 --> No collision, marking as seen.
+Attempt 16: Generated hash value = 630 --> No collision, marking as seen.
+Attempt 17: Generated hash value = 775 --> No collision, marking as seen.
+Attempt 18: Generated hash value = 822 --> No collision, marking as seen.
+Attempt 19: Generated hash value = 766 --> No collision, marking as seen.
+Attempt 20: Generated hash value = 94 --> No collision, marking as seen.
+Attempt 21: Generated hash value = 882 --> No collision, marking as seen.
+Attempt 22: Generated hash value = 249 --> No collision, marking as seen.
+Attempt 23: Generated hash value = 143 --> No collision, marking as seen.
+Attempt 24: Generated hash value = 274 --> No collision, marking as seen.
+Attempt 25: Generated hash value = 406 --> No collision, marking as seen.
+Attempt 26: Generated hash value = 152 --> No collision, marking as seen.
+Attempt 27: Generated hash value = 605 --> No collision, marking as seen.
+Attempt 28: Generated hash value = 524 --> Collision Detected!
+

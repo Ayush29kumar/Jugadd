@@ -1,0 +1,179 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+
+#define MAX_TEXT 1000
+#define ALPHABET 26
+
+// Standard English letter frequency order (most frequent to least frequent)
+const char english_freq_order[] = "ETAOINSHRDLCUMWFGYPBVKJXQZ";
+
+void calculate_frequency(const char *text, int freq[]) {
+	// Initialize frequency array
+	for (int i = 0; i < ALPHABET; i++) freq[i] = 0;
+
+	// Count letter frequency
+	for (int i = 0; text[i]; i++) {
+    	if (isalpha(text[i])) {
+        	freq[toupper(text[i]) - 'A']++;
+    	}
+	}
+}
+
+void print_frequency(int freq[]) {
+	printf("\n--- Letter Frequency in Ciphertext ---\n");
+	for (int i = 0; i < ALPHABET; i++) {
+    	printf("%c : %d\n", 'A' + i, freq[i]);
+	}
+}
+
+void sort_frequency(int freq[], char letters_sorted[]) {
+	int freq_copy[ALPHABET];
+	for (int i = 0; i < ALPHABET; i++) freq_copy[i] = freq[i];
+
+	for (int i = 0; i < ALPHABET; i++) {
+    	int max_idx = -1;
+    	int max_val = -1;
+    	for (int j = 0; j < ALPHABET; j++) {
+        	if (freq_copy[j] > max_val) {
+            	max_val = freq_copy[j];
+            	max_idx = j;
+        	}
+    	}
+    	freq_copy[max_idx] = -1;  // Mark as used
+    	letters_sorted[i] = 'A' + max_idx;
+	}
+}
+
+void apply_frequency_analysis(const char *ciphertext, char *plaintext, char letters_sorted[]) {
+	// Mapping from ciphertext letter to guessed plaintext letter
+	char mapping[ALPHABET];
+	for (int i = 0; i < ALPHABET; i++) {
+    	mapping[letters_sorted[i] - 'A'] = english_freq_order[i];
+	}
+
+	printf("\n--- Mapping of Ciphertext letters to Guessed Letters ---\n");
+	for (int i = 0; i < ALPHABET; i++) {
+    	printf("%c -> %c\n", letters_sorted[i], english_freq_order[i]);
+	}
+
+	// Decrypt based on frequency mapping
+	for (int i = 0; ciphertext[i]; i++) {
+    	if (isalpha(ciphertext[i])) {
+        	int idx = toupper(ciphertext[i]) - 'A';
+        	char mapped_char = mapping[idx];
+        	if (islower(ciphertext[i]))
+            	plaintext[i] = tolower(mapped_char);
+        	else
+            	plaintext[i] = mapped_char;
+    	} else {
+        	plaintext[i] = ciphertext[i];
+    	}
+	}
+	plaintext[strlen(ciphertext)] = '\0';
+}
+
+int main() {
+	char ciphertext[MAX_TEXT];
+	char plaintext[MAX_TEXT];
+
+	printf("Enter Ciphertext (max 1000 chars):\n");
+	fgets(ciphertext, sizeof(ciphertext), stdin);
+
+	// Remove newline if present
+	size_t len = strlen(ciphertext);
+	if (ciphertext[len - 1] == '\n') ciphertext[len - 1] = '\0';
+
+	int freq[ALPHABET];
+	char letters_sorted[ALPHABET + 1];
+	letters_sorted[ALPHABET] = '\0';
+
+	printf("\n--- Step 1: Calculating Letter Frequencies ---\n");
+	calculate_frequency(ciphertext, freq);
+	print_frequency(freq);
+
+	printf("\n--- Step 2: Sorting Letters by Frequency ---\n");
+	sort_frequency(freq, letters_sorted);
+	printf("Letters sorted by frequency (most frequent first): %s\n", letters_sorted);
+
+	printf("\n--- Step 3: Applying Frequency Analysis Mapping ---\n");
+	apply_frequency_analysis(ciphertext, plaintext, letters_sorted);
+
+	printf("\n--- Step 4: Resulting Decrypted Text ---\n");
+	printf("%s\n", plaintext);
+
+	return 0;
+}
+
+
+Output : 
+
+Enter Ciphertext (max 1000 chars):
+Wkh txlfn eurzq ira mxpsv ryhu wkh odcb grj.
+
+--- Step 1: Calculating Letter Frequencies ---
+
+--- Letter Frequency in Ciphertext ---
+A : 1
+B : 1
+C : 1
+D : 1
+E : 1
+F : 1
+G : 1
+H : 3
+I : 1
+J : 1
+K : 2
+L : 1
+M : 1
+N : 1
+O : 1
+P : 1
+Q : 1
+R : 4
+S : 1
+T : 1
+U : 2
+V : 1
+W : 2
+X : 2
+Y : 1
+Z : 1
+
+--- Step 2: Sorting Letters by Frequency ---
+Letters sorted by frequency (most frequent first): RHKUWXABCDEFGIJLMNOPQSTVYZ
+
+--- Step 3: Applying Frequency Analysis Mapping ---
+
+--- Mapping of Ciphertext letters to Guessed Letters ---
+R -> E
+H -> T
+K -> A
+U -> O
+W -> I
+X -> N
+A -> S
+B -> H
+C -> R
+D -> D
+E -> L
+F -> C
+G -> U
+I -> M
+J -> W
+L -> F
+M -> G
+N -> Y
+O -> P
+P -> B
+Q -> V
+S -> K
+T -> J
+V -> X
+Y -> Q
+Z -> Z
+
+--- Step 4: Resulting Decrypted Text ---
+Iat jnfcy loezv mes gnbkx eqto iat pdrh uew.
