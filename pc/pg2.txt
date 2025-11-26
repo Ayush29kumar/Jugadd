@@ -40,5 +40,22 @@ int main() {
 
     printf("\nFinal Bill Amount: $%.2f\n", final_total);
 
+
     return 0;
+
 }
+/*
+* Compilation and Execution:
+* $ gcc -fopenmp pg2.c -o pg2
+* $ ./pg2
+*
+* Sample Output (based on PDF source):
+* Section-wise totals:
+* Clothing: $164.49
+* Gaming: $359.98
+* Grocery: $14.49
+* Stationery: $3.50
+*
+* Final Bill Amount: $542.46
+*/
+
