@@ -33,3 +33,17 @@ int main(int argc, char *argv[]) {
     MPI_Finalize();
     return 0;
 }
+/*
+* Compilation and Execution:
+* $ mpicc pg7.c -o pg7
+* $ mpirun -np 4 ./pg7
+*
+* [cite_start]Sample Output for -np 4 (based on PDF source [cite: 81, 82, 83, 84, 85]):
+* Robot 0 picked 34 mangoes.
+* Robot 1 picked 44 mangoes.
+* Robot 2 picked 34 mangoes.
+* Robot 3 picked 12 mangoes.
+*
+* Total mangoes picked by 4 robots: 124
+* (The number of mangoes will vary due to randomization)
+*/
