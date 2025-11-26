@@ -52,4 +52,22 @@ int main() {
  printf("Student %d with CGPA = %.2f\n", max_index + 1, max_cgpa);
 
     return 0;
+
 }
+
+
+
+/*
+* Compilation and Execution:
+* $ gcc -fopenmp pg5.c -o pg5
+* $ ./pg5
+*
+* Sample Input/Output (based on PDF source):
+* Enter number of students: 2
+* Enter CGPAs of 2 students:
+* Student 1: 7.0
+* Student 2: 9.25
+*
+* Student with the highest CGPA:
+* Student 2 with CGPA = 9.25
+*/
