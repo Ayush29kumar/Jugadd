@@ -33,4 +33,16 @@ int main() {
     printf("Execution Time = %f seconds\n", end_time - start_time);
 
     return 0;
+
 }
+
+
+/*
+* Compilation and Execution:
+* $ gcc -fopenmp pg3.c -o pg3
+* $ ./pg3
+*
+* Sample Output (based on PDF source):
+* Computed value of Pi = 3.141592653589828
+* Execution Time = 0.049130 seconds (Time will vary)
+*/
